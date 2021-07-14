@@ -12,7 +12,7 @@ namespace BusinessLayer.ValidationRules
     {
         public AdminValidator()
         {
-            RuleFor(x => x.AdminUserName).NotEmpty().WithMessage("Kullanıcı adını boş geçemezsiniz");
+            RuleFor(x => x.AdminUserName).NotEmpty().WithMessage("Admin mail adresini adını boş geçemezsiniz");
             RuleFor(x => x.AdminPassword).NotEmpty().WithMessage("Şifreyi boş geçemezsiniz");
         }
     }

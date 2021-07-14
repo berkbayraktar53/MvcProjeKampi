@@ -1,0 +1,168 @@
+﻿@using EntityLayer.Concrete
+@model List<Message>
+@{
+    ViewBag.Title = "Trash";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    string message = "";
+    string deletemessage = "";
+    string color = "";
+    string deletecolor = "";
+}
+<!DOCTYPE html>
+<html>
+<body class="hold-transition sidebar-mini">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Mesaj Sayfası</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            @Html.Action("MessageListMenu", "Contact")
+            <div class="col-md-9">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Çöp Kutusu</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Mail kutusunda ara">
+                                <div class="input-group-append">
+                                    <div class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                <i class="far fa-square"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                            <div class="float-right">
+                                1-50/200
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.float-right -->
+                        </div>
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (item.IsRead == false)
+                                        {
+                                            message = "Geri Yükle";
+                                            color = "btn btn-outline-info btn-sm";
+
+                                        }
+                                        if (item.IsRead == true)
+                                        {
+                                            message = "Geri Yükle";
+                                            color = "btn btn-outline-info btn-sm";
+                                        }
+                                        if (item.Trash == true)
+                                        {
+                                            deletemessage = "Sil";
+                                            deletecolor = "btn btn-outline-danger btn-sm";
+
+                                        }
+                                        <tr>
+                                            <td>
+                                                @if (item.IsRead == false)
+                                                {
+                                                    <a class="@color" href="/Message/RestoreMessage/@item.MessageID">
+                                                        <i class="fas fa-reply"></i>
+                                                        @message
+                                                    </a>
+                                                    <a class="@deletecolor" href="/Message/DeleteMessage/@item.MessageID">
+                                                        <i class="far fa-trash-alt"></i>
+                                                        @deletemessage
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="@color" href="/Message/RestoreMessage/@item.MessageID">
+                                                        <i class="fas fa-reply"></i>
+                                                        @message
+                                                    </a>
+                                                    <a class="@deletecolor" href="/Message/DeleteMessage/@item.MessageID">
+                                                        <i class="far fa-trash-alt"></i>
+                                                        @deletemessage
+                                                    </a>
+                                                }
+
+                                            </td>
+                                            @if (item.Trash == true)
+                                            {
+                                                deletemessage = "Sil";
+                                                color = "btn btn-danger btn-sm";
+
+                                            }
+                                            <td class="mailbox-name"><a href="/Message/GetSendBoxMessageDetails/@item.MessageID">@item.SenderMail</a></td>
+                                            <td class="mailbox-subject">
+                                                <b>@item.Subject</b> - @item.MessageContent.Substring(0, 20)...
+                                            </td>
+                                            <td class="mailbox-attachment"></td>
+                                            <td class="mailbox-date">@(((DateTime)item.MessageDate).ToString("dd-MMM-yyyy"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer p-0">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                <i class="far fa-square"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                            <div class="float-right">
+                                1-50/200
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.float-right -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+</body>
+</html>

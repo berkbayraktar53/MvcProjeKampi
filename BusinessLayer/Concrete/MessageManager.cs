@@ -21,19 +21,24 @@ namespace BusinessLayer.Concrete
             return _messageDal.Get(x => x.MessageID == id);
         }
 
-        public List<Message> GetListDraft()
+        public List<Message> GetListDraft(string p)
         {
-            return _messageDal.List(x => x.SenderMail == null);
+            return _messageDal.List(x => x.SenderMail == p && x.IsDraft == true);
         }
 
-        public List<Message> GetListInbox()
+        public List<Message> GetListInbox(string p)
         {
-            return _messageDal.List(x => x.ReceiverMail == "admin@gmail.com");
+            return _messageDal.List(x => x.ReceiverMail == p && x.Trash == false);
         }
 
-        public List<Message> GetListSendbox()
+        public List<Message> GetListSendbox(string p)
         {
-            return _messageDal.List(x => x.SenderMail == "admin@gmail.com");
+            return _messageDal.List(x => x.SenderMail == p && x.IsDraft == false);
+        }
+
+        public List<Message> GetListTrash(string p)
+        {
+            return _messageDal.List(x => x.ReceiverMail == p && x.Trash == true);
         }
 
         public void MessageAdd(Message message)

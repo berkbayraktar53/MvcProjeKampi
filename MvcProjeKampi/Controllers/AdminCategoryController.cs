@@ -14,7 +14,7 @@ namespace MvcProjeKampi.Controllers
     public class AdminCategoryController : Controller
     {
         CategoryManager cm = new CategoryManager(new EfCategoryDal());
-        [Authorize(Roles = "B")]
+        HeadingManager hm = new HeadingManager(new EfHeadingDal());
         public ActionResult Index()
         {
             var categoryValues = cm.GetList();
@@ -32,6 +32,7 @@ namespace MvcProjeKampi.Controllers
             ValidationResult results = categoryValidator.Validate(p);
             if (results.IsValid)
             {
+                p.CategoryStatus = true;
                 cm.CategoryAdd(p);
                 return RedirectToAction("Index");
             }
@@ -59,8 +60,26 @@ namespace MvcProjeKampi.Controllers
         [HttpPost]
         public ActionResult EditCategory(Category p)
         {
-            cm.CategoryUpdate(p);
-            return RedirectToAction("Index");
+            CategoryValidator categoryValidator = new CategoryValidator();
+            ValidationResult results = categoryValidator.Validate(p);
+            if (results.IsValid)
+            {
+                cm.CategoryUpdate(p);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+        }
+        public ActionResult GetCategory(int id)
+        {
+            var category = hm.GetCategoryByID(id);
+            return View(category);
         }
     }
 }

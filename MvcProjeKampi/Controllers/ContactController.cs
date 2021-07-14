@@ -24,16 +24,19 @@ namespace MvcProjeKampi.Controllers
             var contactValues = cm.GetByID(id);
             return View(contactValues);
         }
-        public PartialViewResult MessageListMenu()
+        public PartialViewResult MessageListMenu(string p)
         {
+            p = (string)Session["AdminUserName"];
             var contactValues = cm.GetList();
-            var messageInboxValues = mm.GetListInbox();
-            var messageSendboxValues = mm.GetListSendbox();
-            var messageDraftValues = mm.GetListDraft();
+            var messageInboxValues = mm.GetListInbox(p);
+            var messageSendboxValues = mm.GetListSendbox(p);
+            var messageDraftValues = mm.GetListDraft(p);
+            var messageTrashValues = mm.GetListTrash(p);
             ViewBag.ContactCount = contactValues.Count();
             ViewBag.MessageInboxCount = messageInboxValues.Count();
             ViewBag.MessageSendboxCount = messageSendboxValues.Count();
-            ViewBag.messageDraftValues = messageDraftValues.Count();
+            ViewBag.messageDraftCount = messageDraftValues.Count();
+            ViewBag.messageTrashCount = messageTrashValues.Count();
             return PartialView();
         }
     }

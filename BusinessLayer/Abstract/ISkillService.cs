@@ -10,5 +10,9 @@ namespace BusinessLayer.Abstract
     public interface ISkillService
     {
         List<Skill> GetList();
+        void SkillAdd(Skill skill);
+        Skill GetByID(int id);
+        void SkillDelete(Skill skill);
+        void SkillUpdate(Skill skill);
     }
 }

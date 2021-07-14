@@ -1,0 +1,22 @@
+﻿@model EntityLayer.Concrete.ImageFile
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Resim Ekle</h2>
+            </div>
+            @using (Html.BeginForm("AddImage", "Gallery", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    <label>Resim Adı</label>
+                    @Html.TextBoxFor(x => x.ImageName, new { @class = "form-control" })
+                    <br />
+                    <label>Resim Yolu</label>
+                    <input type="file" name="ImagePath" class="form-control" />
+                    <br />
+                    <button class="btn btn-success">Kaydet</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

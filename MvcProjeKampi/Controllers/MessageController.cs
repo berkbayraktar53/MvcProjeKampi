@@ -15,26 +15,38 @@ namespace MvcProjeKampi.Controllers
     {
         MessageManager msm = new MessageManager(new EfMessageDal());
         MessageValidator messageValidator = new MessageValidator();
-        public ActionResult Inbox()
+        public ActionResult Inbox(string p)
         {
-            var messageList = msm.GetListInbox();
+            p = (string)Session["AdminUserName"];
+            var messageList = msm.GetListInbox(p);
             return View(messageList);
         }
-        public ActionResult Sendbox()
+        public ActionResult Sendbox(string p)
         {
-            var messageList = msm.GetListSendbox();
+            p = (string)Session["AdminUserName"];
+            var messageList = msm.GetListSendbox(p);
             return View(messageList);
         }
 
         public ActionResult GetInBoxMessageDetails(int id)
         {
             var values = msm.GetByID(id);
+            if (values.IsRead == false)
+            {
+                values.IsRead = true;
+            }
+            msm.MessageUpdate(values);
             return View(values);
         }
 
         public ActionResult GetSendBoxMessageDetails(int id)
         {
             var values = msm.GetByID(id);
+            if (values.IsRead == false)
+            {
+                values.IsRead = true;
+            }
+            msm.MessageUpdate(values);
             return View(values);
         }
 
@@ -44,28 +56,91 @@ namespace MvcProjeKampi.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult NewMessage(Message p)
+        public ActionResult NewMessage(Message p, string button)
         {
+            string sender = (string)Session["AdminUserName"];
             ValidationResult results = messageValidator.Validate(p);
-            if (results.IsValid)
+            if (button == "sendmessage")
             {
-                p.MessageDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                msm.MessageAdd(p);
-                return RedirectToAction("Sendbox");
-            }
-            else
-            {
-                foreach (var item in results.Errors)
+                if (results.IsValid)
                 {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    p.SenderMail = sender;
+                    p.IsDraft = false;
+                    p.MessageDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                    msm.MessageAdd(p);
+                    return RedirectToAction("Sendbox");
+                }
+                else
+                {
+                    foreach (var item in results.Errors)
+                    {
+                        ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    }
+                }
+            }
+            else if (button == "draft")
+            {
+                if (results.IsValid)
+                {
+                    p.SenderMail = sender;
+                    p.IsDraft = true;
+                    p.MessageDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                    msm.MessageAdd(p);
+                    return RedirectToAction("Draft");
+                }
+                else
+                {
+                    foreach (var item in results.Errors)
+                    {
+                        ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    }
                 }
             }
             return View();
         }
-        public ActionResult Draft()
+        public ActionResult DeleteMessage(int id)
         {
-            var messageList = msm.GetListDraft();
+            var values = msm.GetByID(id);
+            msm.MessageDelete(values);
+            return RedirectToAction("Trash");
+        }
+        public ActionResult MoveToTrash(int id)
+        {
+            var values = msm.GetByID(id);
+            values.Trash = true;
+            msm.MessageUpdate(values);
+            return RedirectToAction("Inbox");
+        }
+        public ActionResult RestoreMessage(int id)
+        {
+            var values = msm.GetByID(id);
+            values.Trash = false;
+            msm.MessageUpdate(values);
+            return RedirectToAction("Trash");
+        }
+        public ActionResult Trash(string p)
+        {
+            var messageList = msm.GetListTrash(p);
             return View(messageList);
+        }
+        public ActionResult Draft(string p)
+        {
+            var messageList = msm.GetListDraft(p);
+            return View(messageList);
+        }
+        public ActionResult IsRead(int id)
+        {
+            var result = msm.GetByID(id);
+            if (result.IsRead == false)
+            {
+                result.IsRead = true;
+            }
+            else
+            {
+                result.IsRead = false;
+            }
+            msm.MessageUpdate(result);
+            return RedirectToAction("Inbox");
         }
     }
 }

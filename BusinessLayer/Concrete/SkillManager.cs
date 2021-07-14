@@ -16,9 +16,30 @@ namespace BusinessLayer.Concrete
         {
             _skillDal = skillDal;
         }
+
+        public Skill GetByID(int id)
+        {
+            return _skillDal.Get(x => x.SkillID == id);
+        }
+
         public List<Skill> GetList()
         {
             return _skillDal.List();
+        }
+
+        public void SkillAdd(Skill skill)
+        {
+            _skillDal.Insert(skill);
+        }
+
+        public void SkillDelete(Skill skill)
+        {
+            _skillDal.Delete(skill);
+        }
+
+        public void SkillUpdate(Skill skill)
+        {
+            _skillDal.Update(skill);
         }
     }
 }

@@ -27,3 +27,5 @@ C:\Users\BERK\source\repos\MvcProjeKampi\DataAccessLayer\obj\Debug\DataAccessLay
 C:\Users\BERK\source\repos\MvcProjeKampi\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.mig_admin_table.resources
 C:\Users\BERK\source\repos\MvcProjeKampi\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.mig_aboutstatusadd.resources
 C:\Users\BERK\source\repos\MvcProjeKampi\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.mig_skillpageadd.resources
+C:\Users\BERK\source\repos\MvcProjeKampi\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.mig_addmessagevalues.resources
+C:\Users\BERK\source\repos\MvcProjeKampi\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.mig_addadminstatus.resources

@@ -26,6 +26,16 @@ namespace BusinessLayer.Concrete
             return _writerDal.List();
         }
 
+        public Writer GetRoleForUser(string username)
+        {
+            return _writerDal.Get(x => x.WriterMail == username);
+        }
+
+        public Writer GetWriter(string mail, string password)
+        {
+            return _writerDal.Get(x => x.WriterMail == mail && x.WriterPassword == password);
+        }
+
         public void WriterAdd(Writer writer)
         {
             _writerDal.Insert(writer);

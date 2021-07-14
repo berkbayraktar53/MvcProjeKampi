@@ -188,3 +188,7 @@ C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\System.Xml.XPath.dll
 C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\System.Xml.XPath.XDocument.dll
 C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\FluentValidation.dll
 C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\FluentValidation.xml
+C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\PagedList.dll
+C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\PagedList.Mvc.dll
+C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\PagedList.xml
+C:\Users\BERK\source\repos\MvcProjeKampi\MvcProjeKampi\bin\PagedList.Mvc.xml

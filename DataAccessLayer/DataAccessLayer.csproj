@@ -126,6 +126,14 @@
     <Compile Include="Migrations\202106130753221_mig_skillpageadd.designer.cs">
       <DependentUpon>202106130753221_mig_skillpageadd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107071536251_mig_addmessagevalues.cs" />
+    <Compile Include="Migrations\202107071536251_mig_addmessagevalues.designer.cs">
+      <DependentUpon>202107071536251_mig_addmessagevalues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107081200353_mig_addadminstatus.cs" />
+    <Compile Include="Migrations\202107081200353_mig_addadminstatus.designer.cs">
+      <DependentUpon>202107081200353_mig_addadminstatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106130753221_mig_skillpageadd.resx">
       <DependentUpon>202106130753221_mig_skillpageadd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107071536251_mig_addmessagevalues.resx">
+      <DependentUpon>202107071536251_mig_addmessagevalues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107081200353_mig_addadminstatus.resx">
+      <DependentUpon>202107081200353_mig_addadminstatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

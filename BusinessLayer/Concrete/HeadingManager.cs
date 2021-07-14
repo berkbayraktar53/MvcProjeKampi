@@ -21,9 +21,24 @@ namespace BusinessLayer.Concrete
             return _headingDal.Get(x => x.HeadingID == id);
         }
 
+        public List<Heading> GetCategoryByID(int id)
+        {
+            return _headingDal.List(x => x.CategoryID == id);
+        }
+
         public List<Heading> GetList()
         {
-            return _headingDal.List();
+            return _headingDal.List().OrderByDescending(x => x.HeadingDate).ToList();
+        }
+
+        public List<Heading> GetListByCategoryID(int id)
+        {
+            return _headingDal.List(x => x.CategoryID == id);
+        }
+
+        public List<Heading> GetListByWriter(int id)
+        {
+            return _headingDal.List(x => x.WriterID == id).OrderByDescending(x => x.HeadingDate).ToList();
         }
 
         public void HeadingAdd(Heading heading)
@@ -33,7 +48,7 @@ namespace BusinessLayer.Concrete
 
         public void HeadingDelete(Heading heading)
         {
-            _headingDal.Update(heading);
+            _headingDal.Delete(heading);
         }
 
         public void HeadingUpdate(Heading heading)
